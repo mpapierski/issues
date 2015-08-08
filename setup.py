@@ -15,6 +15,7 @@ setup(
         ],
     },
     install_requires=[
-        'click==4.1'
+        'click==4.1',
+        'requests==2.7.0'
     ],
 )
