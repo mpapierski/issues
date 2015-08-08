@@ -7,7 +7,6 @@ class Issue(object):
 
     Represents project's issue.
     '''
-    url = '/issues'
 
     def __init__(self, description, title, created_at, labels, updated_at, iid,
                  state, assignee, author, milestone, project_id, id):
@@ -23,6 +22,20 @@ class Issue(object):
         self.milestone = milestone
         self.project_id = project_id
         self.id = id
+
+    @classmethod
+    def get_url(cls, project_id=None, state=None, labels=None):
+        if project_id is not None:
+            url = '/projects/{0}/issues'.format(project_id)
+        else:
+            url = '/issues'
+        qs = []
+        if state is not None:
+            qs.append('state={0}'.format(state))
+        if labels is not None:
+            comma_labels = ','.join(labels)
+            qs.append('labels={0}'.format(comma_labels))
+        return url + '?' + '&'.join(qs)
 
     def __repr__(self):
         return 'Issue({0})'.format(self.title)
