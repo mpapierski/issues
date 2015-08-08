@@ -46,6 +46,13 @@ class GitConfig(object):
         except subprocess.CalledProcessError:
             raise KeyError(key)
 
+    def __setitem__(self, key, value):
+        '''Sets value in git config
+
+        Uses git-config(1) internally.
+        '''
+        self.__git('config', key, value)
+
     def get(self, key, default_value=None):
         '''Gets value from config.
 

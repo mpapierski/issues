@@ -14,6 +14,10 @@ setup(
             'issues = issues.cli:main',
         ],
     },
+    tests_require=[
+        'nose==1.3.7',
+        'mock==1.3.0'
+    ],
     install_requires=[
         'click==4.1',
         'requests==2.7.0'
