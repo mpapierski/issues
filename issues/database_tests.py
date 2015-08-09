@@ -20,20 +20,23 @@ class DatabaseTest(unittest.TestCase):
             next(self.db.pending_issues)
 
     def test_insert_issue(self):
-        self.db.insert_issue(123, 'Title')
-        (id, title, ) = next(self.db.issues)
+        self.db.insert_issue(123, 'Title', 'Description')
+        (id, title, description) = next(self.db.issues)
         self.assertEqual(id, 123)
         self.assertEqual(title, 'Title')
+        self.assertEqual(description, 'Description')
 
         with self.assertRaises(StopIteration):
             next(self.db.pending_issues)
 
     def test_insert_pending_issue(self):
-        self.db.insert_issue(None, 'Title')
-        (id, title, ) = next(self.db.issues)
+        self.db.insert_issue(None, 'Title', 'Description')
+        (id, title, description) = next(self.db.issues)
         self.assertIsNone(id)
         self.assertEqual(title, 'Title')
+        self.assertEqual(description, 'Description')
 
-        (id, title, ) = next(self.db.pending_issues)
+        (id, title, description) = next(self.db.pending_issues)
         self.assertIsNone(id)
         self.assertEqual(title, 'Title')
+        self.assertEqual(description, 'Description')

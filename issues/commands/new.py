@@ -3,7 +3,8 @@ import sys
 
 import click
 # from issues.connectors import create_repository
-# from issues.conf import settings
+from issues.conf import settings
+from issues.database import Database
 
 
 def is_comment(text):
@@ -21,6 +22,9 @@ def new():
     # token = settings['gitlab.token']
     # project_name = settings['gitlab.project']
     # repo = create_repository(base_url, token)
+    cache_path = settings['gitlab.cache']
+    cache = Database(cache_path)
+
     template = '''# Commented lines are ignored
 #
 # Example:
@@ -40,5 +44,15 @@ def new():
         sys.stderr.write('Empty message found...\n')
         sys.exit(1)
 
-    for line in lines:
-        click.echo('{0!r}'.format(line))
+    title = lines[0]
+    description = ''
+
+    if len(lines) >= 2:
+        # Title
+        # empty line
+        # Long description
+        description = '\n'.join(lines[2:])
+
+    cache.insert_issue(None, title, description)
+    click.echo('New issue added.')
+    click.echo('Please `sync` now to push local issues to your remote')
