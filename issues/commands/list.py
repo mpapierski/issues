@@ -14,6 +14,7 @@ def cli():
 
 @cli.command()
 def list():
+    '''List all cached issues'''
     db = Database(settings['gitlab.cache'])
     content = StringIO()
     for (id, title, description) in db.issues:
