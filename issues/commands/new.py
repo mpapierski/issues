@@ -4,7 +4,6 @@ import sys
 import click
 # from issues.connectors import create_repository
 # from issues.conf import settings
-from issues.utils import call_editor
 
 
 def is_comment(text):
@@ -31,7 +30,7 @@ def new():
 # This is longer description
 #
 '''
-    result = call_editor(template)
+    result = click.edit(template)
     if result is not None:
         lines = [line for line in result.splitlines() if not is_comment(line)]
         if not lines:
