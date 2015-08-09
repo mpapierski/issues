@@ -12,6 +12,7 @@ def cli():
 
 @cli.command()
 def sync():
+    '''Push local issues, pull remote issues'''
     click.echo('listing issues...')
     base_url = settings['gitlab.url']
     token = settings['gitlab.token']
