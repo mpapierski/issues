@@ -1,7 +1,5 @@
 # issues
 
----
-
 Work on your issues offline. In your terminal.
 
 ### Why?
@@ -54,7 +52,7 @@ If it encounters any outgoing issues (posted with **new** command) in cache then
 
 ###### issues new
 
-Opens `$EDITOR` so you can write new issue **locally*. Accepted format for your issue:
+Opens `$EDITOR` so you can write new issue **locally**. Accepted format for your issue:
 
 ```sh
 Title of your issue.
