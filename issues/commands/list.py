@@ -1,7 +1,10 @@
 from __future__ import unicode_literals
+from StringIO import StringIO
+
 import click
-from issues.connectors import create_repository
+
 from issues.conf import settings
+from issues.database import Database
 
 
 @click.group()
@@ -11,12 +14,13 @@ def cli():
 
 @cli.command()
 def list():
-    click.echo('listing issues...')
-    base_url = settings['gitlab.url']
-    token = settings['gitlab.token']
-    project_name = settings['gitlab.project']
-    repo = create_repository(base_url, token)
-    for project in repo.projects:
-        if project.name == project_name:
-            for issue in repo.issues(project_id=project.id):
-                click.echo(issue)
+    db = Database(settings['gitlab.cache'])
+    content = StringIO()
+    for (id, title, description) in db.issues:
+        if id is None:
+            content.write('Issue: {0}\n'.format(title))
+        else:
+            content.write('Issue: {0} (#{1})\n'.format(title, id))
+        content.write(description + '\n')
+        content.write('---\n')
+    click.echo_via_pager(content.getvalue())

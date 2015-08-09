@@ -68,7 +68,7 @@ Write empty message to cancel.
 
 ###### issues list
 
-*Work in progress*. Lists your cached issues.
+Lists your cached issues.
 
 ### Authors
 
