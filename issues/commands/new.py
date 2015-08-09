@@ -18,6 +18,7 @@ def cli():
 
 @cli.command()
 def new():
+    '''Create new issue'''
     # base_url = settings['gitlab.url']
     # token = settings['gitlab.token']
     # project_name = settings['gitlab.project']
